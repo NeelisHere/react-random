@@ -1,6 +1,6 @@
 import Task from "./Task"
 import { useDispatch, useSelector } from "react-redux"
-import { addTask } from '../slices/todoSlice'
+import { addTask, fetchContent } from '../slices/todoSlice'
 
 
 const Todos = () => {
@@ -8,8 +8,9 @@ const Todos = () => {
     // console.log(tasks)
     const dispatch = useDispatch()
     const handleClick = () => {
-        const newTask = 'test'
-        dispatch(addTask(newTask))
+        // const newTask = 'test'
+        // dispatch(addTask(newTask))
+        dispatch(fetchContent())
     }
     return (
         <div>
@@ -17,6 +18,7 @@ const Todos = () => {
             <div>
                 {
                     tasks.map((task, index) => {
+                        console.log('>>', task)
                         return(
                             <Task key={index} task={task}/>
                         )

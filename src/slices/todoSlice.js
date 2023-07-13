@@ -1,5 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { v4 } from 'uuid'
+import axios from "axios";
+
+export const fetchContent = createAsyncThunk(
+    'content/fetchContent',
+    async () => {
+        const res = await axios('https://jsonplaceholder.typicode.com/todos')
+        const data = await res.data
+        return data
+    }
+)
 
 const todoSlice = createSlice({
     name: 'todos',
@@ -16,9 +26,15 @@ const todoSlice = createSlice({
         },
         deleteTask: (state, action)=>{
             state.tasks = state.tasks.filter((task)=>{
-                return task.taskId !== action.payload
+                return task.id !== action.payload
             })
         }
+    },
+    extraReducers: (builder)=>{
+        builder.addCase(fetchContent.fulfilled, (state, action) => {
+            // console.log('>>', action)
+            state.tasks = action.payload
+        })
     }
 })
 

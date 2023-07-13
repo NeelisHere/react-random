@@ -15,14 +15,15 @@ const Task = ({ task }) => {
     }
     return (
         <div style={styles}>
-        {task.taskName}
+        {task.title}
         <button 
             onClick={()=>{
-                handleDelete(task.taskId)
+                handleDelete(task.id)
             }}
         >
             Delete
         </button>
+        <input type="checkbox" checked={task.completed}/>
         </div>
     )
 }
